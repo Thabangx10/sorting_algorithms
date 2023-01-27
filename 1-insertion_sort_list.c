@@ -8,30 +8,41 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *temp = NULL, *mark = NULL;
+	listint_t *node;
 
 	if ((*list)->next == NULL || list == NULL || (*list) == NULL)
 		return;
-
-	temp = *list;
-
-	/* marker point in the array */
-	marker = *list;
-
-	while (marker != NULL)
+	node = (*list)->next;
+	while (node)
 	{
-		marker = marker->next;
-
-		while (temp->prev && (temp->n < temp->prev->n))
+		while ((node->prev) && (node->prev->n > node->n))
 		{
-			temp->prev->next = temp->next;
-			if (temp->next != NULL)
-				temp->prev->next = temp;
-			else
-				*list = temp;
-			temp->next->prev = temp;
+			node = swap_node(node, list);
 			print_list(*list);
 		}
-		temp = mark;
+		node = node->next;
 	}
+}
+/**
+ * swap_node - swap a node for his previous one
+ * @node: node list
+ * @list: list containing a node
+ *
+ * Return - return a pointer to a node which was enter it
+ */
+listint_t *swap_node(listint_t *node, listint_t **list)
+{
+	listint_t *back = node->prev, *current = node;
+
+	back->next = current->next;
+	if (current->next)
+		current->next->prev = back;
+	current->next = back;
+	current->prev = back->prev;
+	back->prev = current;
+	if (current->prev)
+		current->prev->next = current;
+	else
+		*list = current;
+	return (current);
 }
