@@ -9,32 +9,27 @@
  */
 void selection_sort(int *array, size_t size)
 {
-	size_t i = 0, walker = 0, to_swap = 0;
-	int to_comp = 0;
+	size_t i, index;
+	int tmp, swap, flag = 0;
 
-	if (size < 2)
+	if (array == NULL)
 		return;
-
-	for (i = 0, i < size - 1, ++i)
+	for (i = 0, i < size, i++)
 	{
-		to_comp = array[i];
-		to_swap = i;
-		for (walker = i; walker < size; walker++)
+		tmp = i;
+		flag = 0;
+		for (index = i + 1; index < size; index++)
 		{
-			if (array[walker] < to_comp)
+			if (array[tmp] > array[index])
 			{
-				/* Setting index to swap*/
-				to_swap = walker;
-				to_comp = array[walker];
+				tmp = index;
+				flag += 1;
 			}
 		}
-		/* No match found */
-		if (to_swap != i)
-		{
-			array[i] += array[to_swap];
-			array[to_swap] = array[i] - array[to_swap];
-			array[i] -= array[to_swap];
+		swap = array[i];
+		array[i] = array[tmp];
+		array[tmp] = swap;
+		if (flag != 0)
 			print_array(array, size);
-		}
 	}
 }
