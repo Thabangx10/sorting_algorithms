@@ -13,13 +13,12 @@ void merge_compare(int *array, size_t start, size_t stop, int *new)
 {
 	size_t i = start, j, k, mid;
 
-	j = mid =(start + stop) / 2;
+	j = mid = (start + stop) / 2;
 	printf("Merging...\n");
 	printf("[left]: ");
 	print_array(array + start, mid - start);
 	printf("[right]: ");
 	print_array(array + mid, stop - mid);
-	
 	for (k = start; k < stop; k++)
 		if (i < mid && (j >= stop || array[i] <= array[j]))
 		{
@@ -46,7 +45,7 @@ void merge_sort_top_down(int *array, size_t start, size_t stop, int *new)
 {
 	size_t mid;
 
-	mid = (start + stop) /2;
+	mid = (start + stop) / 2;
 	if (stop - start < 2)
 	{
 		return;
